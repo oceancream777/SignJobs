@@ -1,0 +1,11 @@
+/** Local phrase reference retrieved by both discovery and classification. No network/model needed. */
+export const hiringVocabulary={
+ direct:['hiring','recruiting','recruitment drive','job opening','job openings','vacancy','vacancies','join our team','join the team','join our growing team','join our expanding team','applications open','applications are open','apply now','apply here','apply at','apply for','freshers wanted','graduates wanted','looking for a','looking for an','looking for our next','seeking a','seeking an','on the lookout for','career opportunity','career opportunities','job opportunity','job opportunities'],
+ contextual:['exciting opportunity','exciting opportunities','great opportunity','great opportunities','amazing opportunity','amazing opportunities','incredible opportunity','incredible opportunities','opportunity alert','opportunities for','open position','open positions','open role','open roles','multiple openings','immediate opening','immediate openings','immediate joiners','kickstart your career','kick start your career','start your career','launch your career','grow with us','graduate programme','graduate program','campus recruitment','off campus drive','off-campus drive','walk-in drive','walk in drive','talent wanted'],
+ roles:/\b(?:intern(?:ship)?s?|apprentice(?:ship)?s?|trainees?|freshers?|graduates?|students?|pass[ -]?outs?|product|analyst|analytics|consult(?:ant|ing)|research|fintech|AI|engineer|developer|designer|role|position|job|career)\b/i
+};
+const normal=(s:string)=>s.toLowerCase().replace(/[’‘]/g,"'").replace(/#/g,'').replace(/\s+/g,' ');
+const match=(text:string,phrase:string)=>new RegExp('\\b'+phrase.replace(/ /g,'\\s+')+'\\b','i').test(text);
+export function retrieveHiringCues(text:string){const n=normal(text);return [...hiringVocabulary.direct.filter(s=>match(n,s)),...hiringVocabulary.contextual.filter(s=>match(n,s)&&hiringVocabulary.roles.test(n))];}
+export function hasHiringInvitation(text:string){return retrieveHiringCues(text).length>0;}
+export function hasDiscoveryCue(text:string){return hasHiringInvitation(text)||/\b(?:intern(?:ship)?|apprentice(?:ship)?|product manager|business analyst|freshers?|recent graduates?|new graduates?|graduate trainee|2026.{0,25}(?:batch|graduates?|pass[ -]?outs?)|(?:batch|class) of 2026)\b/i.test(normal(text));}

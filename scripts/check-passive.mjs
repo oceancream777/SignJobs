@@ -1,0 +1,6 @@
+import {readdir,readFile} from 'node:fs/promises';
+const root=new URL('../src/',import.meta.url);let failures=[];
+for(const name of await readdir(root)){if(!name.endsWith('.ts'))continue;const s=await readFile(new URL(name,root),'utf8');for(const pattern of [/\.click\s*\(/,/\.scrollTo\s*\(/,/\.scrollIntoView\s*\(/,/\.dispatchEvent\s*\(/,/\bXMLHttpRequest\b/,/\bWebSocket\b/,/\binnerHTML\s*=/])if(pattern.test(s))failures.push(`${name}: forbidden ${pattern}`);if(/\bfetch\s*\(/.test(s)&&name!=='model-download.ts')failures.push(`${name}: network outside model-download module`);}
+const model=JSON.parse(await readFile(new URL('model-manifest.json',root)));if(!['apache-2.0','mit'].includes(model.license)||!/^[a-f0-9]{40}$/.test(model.revision)||!model.files.every(f=>/^[a-f0-9]{64}$/.test(f.sha256)))failures.push('Model must have verified open licence, full pinned revision and SHA256 hashes');
+const manifest=JSON.parse(await readFile(new URL('../manifest.json',root)));if(manifest.host_permissions.join()!=='https://www.linkedin.com/search/results/content/*'||manifest.permissions.some(p=>!['storage','offscreen'].includes(p)))failures.push('Permissions expanded beyond passive scope');
+if(failures.length){console.error(failures.join('\n'));process.exit(1);}console.log('Passive-source and pinned-model checks passed.');

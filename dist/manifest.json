@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Signal \u2014 Hiring Post Skimmer",
+  "version": "0.9.2",
+  "description": "A passive, local-first hiring-post reader for LinkedIn content search in Brave.",
+  "permissions": [
+    "storage",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://www.linkedin.com/search/results/content/*"
+  ],
+  "optional_host_permissions": [
+    "https://huggingface.co/*",
+    "https://cdn-lfs.huggingface.co/*",
+    "https://cdn-lfs-us-1.huggingface.co/*",
+    "https://cas-bridge.xethub.hf.co/*",
+    "https://us.aws.cdn.hf.co/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/search/results/content/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Hiring Post Skimmer"
+  },
+  "options_page": "options.html",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'none'; connect-src 'self' https://huggingface.co https://cdn-lfs.huggingface.co https://cdn-lfs-us-1.huggingface.co https://cas-bridge.xethub.hf.co https://us.aws.cdn.hf.co"
+  }
+}

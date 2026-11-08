@@ -1,0 +1,7 @@
+import api from './extension';
+import {safeUrl} from './settings';
+import type {Saved} from './types';
+const target=document.getElementById('saved')!;
+async function render(){const data=await api.storage.local.get('saved');const items:Saved[]=(data.saved as Saved[])||[];target.replaceChildren();if(!items.length){const p=document.createElement('p');p.textContent='Nothing saved yet. Open a post summary and choose Save or Applied.';p.className='note';target.append(p);}
+ for(const s of items){const box=document.createElement('article');box.className='saved-card';const title=document.createElement('h2');title.textContent=s.roleTitle;const meta=document.createElement('small');meta.textContent=[s.company,s.status,new Date(s.timestamp).toLocaleDateString()].filter(Boolean).join(' · ');box.append(title,meta);for(const [label,url]of [['Application ↗',s.applyUrl],['Post ↗',s.postUrl]]){const href=safeUrl(url);if(href&&/^https?:\/\//i.test(href)){const a=document.createElement('a');a.href=href;a.textContent=label;a.target='_blank';a.rel='noopener noreferrer';box.append(a);}}const remove=document.createElement('button');remove.textContent='Remove';remove.className='secondary';remove.onclick=async()=>{await api.runtime.sendMessage({type:'delete-saved',postId:s.postId});await render();};box.append(remove);target.append(box);}}
+document.getElementById('settings')!.onclick=()=>void api.runtime.openOptionsPage();void render();
