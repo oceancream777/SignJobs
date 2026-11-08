@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Build 0.9.2: blue-to-red liquid glass
 
 Reload Signal at `brave://extensions` and refresh LinkedIn. Fabric styling has been removed. Summary bubbles now use a blue → violet → red CSS gradient, rounded glass edges, a translucent tinted surface, and a soft reflective highlight. White text and light pill-shaped Apply buttons stay readable over the gradient. The same glass palette works in both color schemes.
@@ -197,3 +198,7 @@ Synthetic unit and browser fixtures are not the PRD's requested 300 real-post co
 - `src/content.ts`, `src/ui.ts`: observers, reversible CSS collapse, Shadow DOM controls and popover.
 - `src/offscreen.ts`, `src/model-worker.ts`, `src/model-download.ts`: optional model lifecycle, verified download and offline inference.
 - `docs/PRD-v0.2.md`: original supplied PRD, preserved as reference. This README's explicit overrides and implemented/deferred status take precedence.
+=======
+# SignJobs
+faster job filtering
+>>>>>>> origin/main
