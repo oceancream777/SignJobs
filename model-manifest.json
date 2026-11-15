@@ -1,0 +1,39 @@
+{
+  "id": "onnx-community/Qwen3-1.7B-ONNX",
+  "revision": "3231b522c6e703b2f9b3cd8ea27426a1289a02f2",
+  "license": "apache-2.0",
+  "licenseSource": "https://huggingface.co/Qwen/Qwen3-1.7B",
+  "dtype": "q4f16",
+  "files": [
+    {
+      "path": "config.json",
+      "size": 943,
+      "sha256": "d443f9cfc878a105bd075083230394623e477574e47061784744534361214d00"
+    },
+    {
+      "path": "generation_config.json",
+      "size": 219,
+      "sha256": "9e9e031ae8bca36eefcdcdd0b35d83c61baa01e31d68d5f5a961c9ca1a4b95bf"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "size": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "size": 10369,
+      "sha256": "7c5194eecfd95a4dcbd6b4b502af785d2541fd65a388d1cae7ad43693c67b802"
+    },
+    {
+      "path": "tokenizer.json",
+      "size": 9117040,
+      "sha256": "e7a95fce95bf5b0946d0ddb3f9d7caa030b7e850bbe92b0edb26bcf563e9f3d5"
+    },
+    {
+      "path": "onnx/model_q4f16.onnx",
+      "size": 1426069098,
+      "sha256": "fb85b44defdf43ace50c7a4937127e889b9f8a0483eb87a6c4151a815c5da3b5"
+    }
+  ]
+}

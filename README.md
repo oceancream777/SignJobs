@@ -1,3 +1,9 @@
+## Build 0.9.3: smoother growing feeds
+
+Reload Signal at `brave://extensions`, then refresh LinkedIn once to activate this build. New posts are discovered from changed DOM regions instead of rescanning the whole document after every mutation. Unchanged posts reuse their summaries and link inspection; changed posts still refresh their links. Layout reads are batched before style writes, offscreen notes stop rendering, and automatic model interpretation waits for a short pause in scrolling. No new dependency or network service is required.
+
+These changes address repeated main-thread work identified in the code. They do not establish a measured improvement on a live LinkedIn session or guarantee LinkedIn loading/network behavior. The initial page scan still examines the loaded document; a very large single insertion may still take time. See `docs/VALIDATION.md` for checks.
+
 # SignJobs
 
 **Find hiring posts in LinkedIn content search without losing the application link.** Signal reads posts already displayed in your Brave browser, identifies hiring details, and surfaces application links or email contacts beside the post.
@@ -12,7 +18,7 @@
 4. Open LinkedIn and search for posts in **content search**. Use LinkedIn's own search and date filters. If the search tab was already open, refresh it once.
 5. Signal adds a summary beside posts it can read. Use **Apply** to open an extracted HTTP(S) application link, or copy an email when the post asks applicants to email.
 
-The extension is designed for Brave/Chromium's Manifest V3 format. Safari is not supported. Chrome/Edge may work, but Brave is the tested target.
+**Browser support:** Signal currently supports **Brave only**. Support for other browsers is planned; Chrome, Edge, and Safari are not supported yet.
 
 ## Build from source
 
